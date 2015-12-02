@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-  一个API网络请求库
+  DQNetworkKit是一个API网络请求库，易使用，易扩展
                        DESC
 
   s.homepage         = "https://github.com/jjjjjeffrey/DQNetworkKit"
