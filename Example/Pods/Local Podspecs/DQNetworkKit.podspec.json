@@ -1,0 +1,36 @@
+{
+  "name": "DQNetworkKit",
+  "version": "0.1.0",
+  "summary": "DQNetworkKit is a API Lib",
+  "description": "一个API网络请求库",
+  "homepage": "https://github.com/jjjjjeffrey/DQNetworkKit",
+  "license": "MIT",
+  "authors": {
+    "zengdaqian": "314099323@qq.com"
+  },
+  "source": {
+    "git": "https://github.com/jjjjjeffrey/DQNetworkKit.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "DQNetworkKit": [
+      "Pod/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "AFNetworking": [
+      "~> 2.6.3"
+    ],
+    "UICKeyChainStore": [
+
+    ],
+    "YYModel": [
+
+    ]
+  }
+}

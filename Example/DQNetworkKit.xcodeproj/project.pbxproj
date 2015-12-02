@@ -21,6 +21,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		69ECFD9D043E9D3AA827689F /* Pods_DQNetworkKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414AB65F18C144BE73960DBB /* Pods_DQNetworkKit_Example.framework */; };
+		7BC9266D1C0ECCEA009E8930 /* ExampleAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BC9266C1C0ECCEA009E8930 /* ExampleAPIManager.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		B34B83AA3E4EC2DEC3F841ED /* Pods_DQNetworkKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42D179D7E2805871B1B22A60 /* Pods_DQNetworkKit_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -40,7 +41,7 @@
 		3E6F3E3296269196C5AEA114 /* Pods-DQNetworkKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQNetworkKit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DQNetworkKit_Tests/Pods-DQNetworkKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		414AB65F18C144BE73960DBB /* Pods_DQNetworkKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DQNetworkKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D179D7E2805871B1B22A60 /* Pods_DQNetworkKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DQNetworkKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6003F58A195388D20070C39A /* DQNetworkKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = DQNetworkKit.app; path = DQNetworkKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003F58A195388D20070C39A /* DQNetworkKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DQNetworkKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -53,15 +54,17 @@
 		6003F5A5195388D20070C39A /* DQViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DQViewController.h; sourceTree = "<group>"; };
 		6003F5A6195388D20070C39A /* DQViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DQViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = Tests.xctest; path = DQNetworkKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003F5AE195388D20070C39A /* DQNetworkKit_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DQNetworkKit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		7558A7477CBDCFCADF18AF79 /* Pods-DQNetworkKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQNetworkKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DQNetworkKit_Example/Pods-DQNetworkKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		7BC9266B1C0ECCEA009E8930 /* ExampleAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAPIManager.h; sourceTree = "<group>"; };
+		7BC9266C1C0ECCEA009E8930 /* ExampleAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleAPIManager.m; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		EAC1E2E3F59EFD1F953314C2 /* DQNetworkKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DQNetworkKit.podspec; path = ../DQNetworkKit.podspec; sourceTree = "<group>"; };
+		EAC1E2E3F59EFD1F953314C2 /* DQNetworkKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DQNetworkKit.podspec; path = ../DQNetworkKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		EB2EBC2E302F1685F6D67A4A /* Pods-DQNetworkKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQNetworkKit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DQNetworkKit_Tests/Pods-DQNetworkKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		ED8B99475B1170B53ABE45CD /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FF872F27E300BF22B56B7BF5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -119,8 +122,8 @@
 		6003F58B195388D20070C39A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6003F58A195388D20070C39A /* DQNetworkKit.app */,
-				6003F5AE195388D20070C39A /* Tests.xctest */,
+				6003F58A195388D20070C39A /* DQNetworkKit_Example.app */,
+				6003F5AE195388D20070C39A /* DQNetworkKit_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,6 +149,8 @@
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* DQViewController.h */,
 				6003F5A6195388D20070C39A /* DQViewController.m */,
+				7BC9266B1C0ECCEA009E8930 /* ExampleAPIManager.h */,
+				7BC9266C1C0ECCEA009E8930 /* ExampleAPIManager.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -213,7 +218,7 @@
 			);
 			name = DQNetworkKit_Example;
 			productName = DQNetworkKit;
-			productReference = 6003F58A195388D20070C39A /* DQNetworkKit.app */;
+			productReference = 6003F58A195388D20070C39A /* DQNetworkKit_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6003F5AD195388D20070C39A /* DQNetworkKit_Tests */ = {
@@ -234,7 +239,7 @@
 			);
 			name = DQNetworkKit_Tests;
 			productName = DQNetworkKitTests;
-			productReference = 6003F5AE195388D20070C39A /* Tests.xctest */;
+			productReference = 6003F5AE195388D20070C39A /* DQNetworkKit_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -393,6 +398,7 @@
 				6003F59E195388D20070C39A /* DQAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* DQViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				7BC9266D1C0ECCEA009E8930 /* ExampleAPIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

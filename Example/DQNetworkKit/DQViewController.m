@@ -7,8 +7,11 @@
 //
 
 #import "DQViewController.h"
+#import "ExampleAPIManager.h"
 
-@interface DQViewController ()
+@interface DQViewController () <DQAPIManagerDelegate>
+
+@property (nonatomic, strong) ExampleAPIManager *apiManager;
 
 @end
 
@@ -17,13 +20,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    [self.apiManager requestWithParams:@{} landing:self];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - DQAPIManagerDelegate
+- (void)apiDidLandingSuccess:(DQAPIManger <DQAPI> *)apiManager; {
+    
+}
+
+- (void)apiDidLandingFailure:(DQAPIManger<DQAPI> *)apiManager; {
+    
+}
+
+#pragma mark - Getter And Setter
+- (ExampleAPIManager *)apiManager {
+    if (_apiManager == nil) {
+        _apiManager = [ExampleAPIManager new];
+    }
+    return _apiManager;
 }
 
 @end
