@@ -7,12 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DQAPIReformer.h"
 
+/**
+ *  每个DQAPIManger子类都应遵守DQAPI协议
+ */
 @protocol DQAPI <NSObject>
 
-@required
-- (NSString *)methodName;
 @optional
+- (NSString *)methodName;
+- (NSString *)postPath;
+- (id <DQAPIParamsReformer>)paramsReformer;
 - (NSString *)baseURL;
 
 @end

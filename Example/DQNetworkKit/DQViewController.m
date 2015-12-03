@@ -21,7 +21,9 @@
 {
     [super viewDidLoad];
 
-    [self.apiManager requestWithParams:@{} landing:self];
+    [self.apiManager requestWithParams:@{@"key1": @"value1",
+                                         @"key2": @"value2",
+                                         @"key3": @"value3",} landing:self];
 }
 
 - (void)didReceiveMemoryWarning

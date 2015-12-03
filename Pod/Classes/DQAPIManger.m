@@ -12,18 +12,16 @@
 #import "YYModel.h"
 
 
-#define APP_GROUP @"com.companyname"
-
-@implementation DQAPIResponse
-
-@end
+#define APP_GROUP @"DQTest.amazingAppFamily"
 
 
-@interface APIParamsMainReformer : NSObject <DQAPIParamsReformer>
+
+
+@interface APIParamsDefaultReformer : NSObject <DQAPIParamsReformer>
 
 @end
 
-@implementation APIParamsMainReformer
+@implementation APIParamsDefaultReformer
 
 - (NSDictionary *)paramsWithRawValue:(NSDictionary *)rawValue; {
     NSMutableDictionary *params = [NSMutableDictionary new];
@@ -32,6 +30,7 @@
     }
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"user"
                                                                 accessGroup:APP_GROUP];
+    NSLog(@"%@", keychain);
     NSMutableDictionary *identicationDic = [NSMutableDictionary new];
     NSString *account = keychain[@"account"];
     if (account) {
@@ -42,8 +41,8 @@
         }
     }
 //    use to test
-//    identicationDic[@"username"] = @"18616998609";
-//    identicationDic[@"password"] = @"a123456";
+    identicationDic[@"username"] = @"18616998609";
+    identicationDic[@"password"] = @"a123456";
     
     NSString *uuid = keychain[@"uuid"];
     if (uuid == nil) {
@@ -70,6 +69,10 @@
 @interface DQAPIManger ()
 
 @property (nonatomic, weak, readonly) id <DQAPI> child;
+/**
+ *  参数转换器，用于将业务参数转换为实际请求参数，详见DQAPIParamsReformer协议
+ */
+@property (nonatomic, strong) id <DQAPIParamsReformer> paramsReformer;
 @property (nonatomic, strong) AFHTTPSessionManager *httpManager;
 @property (nonatomic, strong) NSURLSessionDataTask *task;
 @property (nonatomic, strong, readwrite) DQAPIResponse *response;
@@ -94,8 +97,7 @@
 }
 
 - (void)requestWithParams:(NSDictionary *)params landing:(id <DQAPIManagerDelegate>)delegate; {
-    APIParamsMainReformer *reformer = [APIParamsMainReformer new];
-    [self requestWithParams:params reformer:reformer landing:delegate];
+    [self requestWithParams:params reformer:self.child.paramsReformer landing:delegate];
 }
 
 - (void)requestWithParams:(NSDictionary *)params reformer:(id <DQAPIParamsReformer>)reformer landing:(id <DQAPIManagerDelegate>)delegate; {
@@ -103,25 +105,30 @@
     __weak typeof(self) weakSelf = self;
     self.delegate = delegate;
     NSDictionary *reformeredParams = [reformer paramsWithRawValue:params];
-    NSString *postString = [NSString stringWithFormat:@"cfdh/data.ashx?function=%@", self.child.methodName];
-    self.task = [self.httpManager POST:postString parameters:reformeredParams success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+    self.task = [self.httpManager POST:self.child.postPath parameters:reformeredParams success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         weakSelf.response = [DQAPIResponse yy_modelWithDictionary:responseObject];
         if (weakSelf.response.code == 0) {
             if ([weakSelf.delegate respondsToSelector:@selector(apiDidLandingSuccess:)]) {
-                [weakSelf.delegate apiDidLandingSuccess:self.child];
+                [weakSelf.delegate apiDidLandingSuccess:weakSelf.child];
             }
         } else {
             if ([weakSelf.delegate respondsToSelector:@selector(apiDidLandingFailure:)]) {
-                [weakSelf.delegate apiDidLandingFailure:self.child];
+                [weakSelf.delegate apiDidLandingFailure:weakSelf.child];
             }
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         weakSelf.error = [error copy];
         if ([weakSelf.delegate respondsToSelector:@selector(apiDidLandingFailure:)]) {
-            [weakSelf.delegate apiDidLandingFailure:self.child];
+            [weakSelf.delegate apiDidLandingFailure:weakSelf.child];
         }
     }];
+}
+
+- (void)cancel {
+    if (self.task) {
+        [self.task cancel];
+    }
 }
 
 #pragma mark - Getters And Setters
@@ -133,8 +140,20 @@
     return @"http://www.365qian.com:8300/";
 }
 
+- (NSString *)postPath; {
+    NSString *r = [NSString stringWithFormat:@"cfdh/data.ashx?function=%@", self.child.methodName];
+    return r;
+}
+
 - (NSString *)methodName; {
     return @"";
+}
+
+- (id <DQAPIParamsReformer>)paramsReformer {
+    if (_paramsReformer == nil) {
+        _paramsReformer = [APIParamsDefaultReformer new];
+    }
+    return _paramsReformer;
 }
 
 - (AFHTTPSessionManager *)httpManager {
@@ -150,6 +169,15 @@
         _httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     }
     return _httpManager;
+}
+
+@end
+
+
+@implementation DQAPIResponse
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"code:%@\nmessage:%@\ndata:%@", @(self.code), self.message, self.data?:@"nil"];
 }
 
 @end
