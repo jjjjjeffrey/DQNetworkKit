@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DQAPI.h"
-#import "DQAPIReformer.h"
+
 
 @class DQAPIManger;
 @class DQAPIResponse;
+@protocol DQAPI;
+@protocol DQAPIParamsReformer;
+
 /**
  *  API着陆代理协议
  */
@@ -28,6 +30,7 @@
  *  API请求基类，每个API请求类都应继承此类，并遵守DQAPI协议
  */
 @interface DQAPIManger : NSObject
+
 
 
 /**

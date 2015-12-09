@@ -10,7 +10,8 @@
 #import "AFNetworking.h"
 #import "UICKeyChainStore.h"
 #import "YYModel.h"
-
+#import "DQAPI.h"
+#import "DQAPIReformer.h"
 
 #define APP_GROUP @"DQTest.amazingAppFamily"
 
@@ -23,7 +24,7 @@
 
 @implementation APIParamsDefaultReformer
 
-- (NSDictionary *)paramsWithRawValue:(NSDictionary *)rawValue; {
+- (NSDictionary *)paramsWithRawValue:(NSDictionary *)rawValue api:(id <DQAPI>)api; {
     NSMutableDictionary *params = [NSMutableDictionary new];
     if (rawValue) {
         params[@"data"] = rawValue;
@@ -104,7 +105,14 @@
     
     __weak typeof(self) weakSelf = self;
     self.delegate = delegate;
-    NSDictionary *reformeredParams = [reformer paramsWithRawValue:params];
+    NSDictionary *reformeredParams = [reformer paramsWithRawValue:params api:self.child];
+#if DEBUG
+    NSLog(@"---------HTTP Request Params Log Begin---------\n");
+    NSData *paramsData = [NSJSONSerialization dataWithJSONObject:reformeredParams options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *paramsJsonStr = [[NSString alloc] initWithData:paramsData encoding:NSUTF8StringEncoding];
+    NSLog(@"%@", paramsJsonStr);
+    NSLog(@"---------HTTP Request Params Log End---------\n");
+#endif
     self.task = [self.httpManager POST:self.child.postPath parameters:reformeredParams success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         weakSelf.response = [DQAPIResponse yy_modelWithDictionary:responseObject];
         if (weakSelf.response.code == 0) {
@@ -159,14 +167,16 @@
 - (AFHTTPSessionManager *)httpManager {
     if (_httpManager == nil) {
         _httpManager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:self.child.baseURL]];
-        [_httpManager.requestSerializer setQueryStringSerializationWithBlock:^NSString * _Nonnull(NSURLRequest * _Nonnull request, id  _Nonnull parameters, NSError * _Nullable __autoreleasing * _Nullable error) {
-            if (parameters == nil) return @"";
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            return jsonString;
-        }];
-        [_httpManager.requestSerializer setValue:@"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        __weak typeof(self) weakSelf = self;
+        
+        if ([self.child respondsToSelector:@selector(paramsSerializedWithParams:)]) {
+            [_httpManager.requestSerializer setQueryStringSerializationWithBlock:^NSString * _Nonnull(NSURLRequest * _Nonnull request, id  _Nonnull parameters, NSError * _Nullable __autoreleasing * _Nullable error) {
+                return [weakSelf.child paramsSerializedWithParams:parameters];
+            }];
+            [_httpManager.requestSerializer setValue:@"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        }
         _httpManager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+        
     }
     return _httpManager;
 }

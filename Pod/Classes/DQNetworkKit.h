@@ -10,5 +10,7 @@
 #define DQNetworkKit_h
 
 #import "DQAPIManger.h"
+#import "DQAPI.h"
+#import "DQAPIReformer.h"
 
 #endif /* DQNetworkKit_h */

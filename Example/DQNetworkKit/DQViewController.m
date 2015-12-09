@@ -21,9 +21,9 @@
 {
     [super viewDidLoad];
 
-    [self.apiManager requestWithParams:@{@"key1": @"value1",
-                                         @"key2": @"value2",
-                                         @"key3": @"value3",} landing:self];
+    [self.apiManager requestWithParams:@{@"smsType": @(1),
+                                         @"mobile": @"18616998609",
+                                         @"name": @"小明"} landing:self];
 }
 
 - (void)didReceiveMemoryWarning

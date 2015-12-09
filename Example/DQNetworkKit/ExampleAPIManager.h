@@ -8,6 +8,8 @@
 
 #import "DQNetworkKit.h"
 
+#define APP_GROUP @"DQTest.amazingAppFamily"
+
 @interface ExampleAPIManager : DQAPIManger <DQAPI>
 
 @end

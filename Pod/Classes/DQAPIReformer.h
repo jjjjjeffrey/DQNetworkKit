@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+
+
+@protocol DQAPI;
 @protocol DQAPIParamsReformer <NSObject>
 
 /**
@@ -40,6 +43,8 @@
  *
  *  @return 请求参数
  */
-- (NSDictionary *)paramsWithRawValue:(NSDictionary *)rawValue;
+- (NSDictionary *)paramsWithRawValue:(NSDictionary *)rawValue api:(id <DQAPI>)api;
 
 @end
+
+
