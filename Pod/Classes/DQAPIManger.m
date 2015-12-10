@@ -106,16 +106,10 @@
     __weak typeof(self) weakSelf = self;
     self.delegate = delegate;
     NSDictionary *reformeredParams = [reformer paramsWithRawValue:params api:self.child];
-#if DEBUG
-    NSLog(@"---------HTTP Request Params Log Begin---------\n");
-    NSData *paramsData = [NSJSONSerialization dataWithJSONObject:reformeredParams options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *paramsJsonStr = [[NSString alloc] initWithData:paramsData encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", paramsJsonStr);
-    NSLog(@"---------HTTP Request Params Log End---------\n");
-#endif
+
     self.task = [self.httpManager POST:self.child.postPath parameters:reformeredParams success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
         weakSelf.response = [DQAPIResponse yy_modelWithDictionary:responseObject];
-        if (weakSelf.response.code == 0) {
+        if (weakSelf.response.code == 1) {
             if ([weakSelf.delegate respondsToSelector:@selector(apiDidLandingSuccess:)]) {
                 [weakSelf.delegate apiDidLandingSuccess:weakSelf.child];
             }

@@ -18,7 +18,7 @@
 - (NSDictionary *)paramsWithRawValue:(NSDictionary *)rawValue api:(id <DQAPI>)api; {
     NSMutableDictionary *reformeredParams = [NSMutableDictionary new];
     reformeredParams[@"function"] = [api methodName];
-    reformeredParams[@"timestamp"] = @"20151115124850";
+    reformeredParams[@"timestamp"] = [self time];
     reformeredParams[@"source"] = @"IOS";
     reformeredParams[@"version"] = @"1.0.0";
     
@@ -34,6 +34,12 @@
         reformeredParams[@"data"] = rawValue;
     }
     return reformeredParams;
+}
+
+- (NSString *)time {
+    NSDateFormatter *fmt = [NSDateFormatter new];
+    fmt.dateFormat = @"yyyyMMddHHmmss";
+    return [fmt stringFromDate:[NSDate date]];
 }
 
 @end
