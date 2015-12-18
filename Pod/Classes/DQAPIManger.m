@@ -16,6 +16,8 @@
 #define APP_GROUP @"DQTest.amazingAppFamily"
 
 
+NSString * const DQNetworkTaskDidStartNotification = @"com.dqnetwork.task.start";
+NSString * const DQNetworkTaskDidCompleteNotification = @"com.dqnetwork.task.complete";
 
 
 @interface APIParamsDefaultReformer : NSObject <DQAPIParamsReformer>
@@ -29,38 +31,6 @@
     if (rawValue) {
         params[@"data"] = rawValue;
     }
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"user"
-                                                                accessGroup:APP_GROUP];
-    NSLog(@"%@", keychain);
-    NSMutableDictionary *identicationDic = [NSMutableDictionary new];
-    NSString *account = keychain[@"account"];
-    if (account) {
-        identicationDic[@"username"] = account;
-        NSString *password = keychain[account];
-        if (password) {
-            identicationDic[@"password"] = password;
-        }
-    }
-//    use to test
-    identicationDic[@"username"] = @"18616998609";
-    identicationDic[@"password"] = @"a123456";
-    
-    NSString *uuid = keychain[@"uuid"];
-    if (uuid == nil) {
-        uuid = [UIDevice currentDevice].identifierForVendor.UUIDString;
-        keychain[@"uuid"] = uuid;
-    }
-    identicationDic[@"imei"] = uuid;
-    
-    NSString *systemVersion = [UIDevice currentDevice].systemVersion;
-    NSString *deviceModel = [UIDevice currentDevice].model;
-    identicationDic[@"info"] = [NSString stringWithFormat:@"systemVersion:%@;systemModel:%@", systemVersion, deviceModel];
-    identicationDic[@"version"] = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    identicationDic[@"build"] = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    identicationDic[@"type"] = @"basic";
-    
-    params[@"identication"] = identicationDic;
-    
     
     return params;
 }
@@ -118,13 +88,15 @@
                 [weakSelf.delegate apiDidLandingFailure:weakSelf.child];
             }
         }
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:DQNetworkTaskDidCompleteNotification object:weakSelf.task];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         weakSelf.error = [error copy];
         if ([weakSelf.delegate respondsToSelector:@selector(apiDidLandingFailure:)]) {
             [weakSelf.delegate apiDidLandingFailure:weakSelf.child];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:DQNetworkTaskDidCompleteNotification object:weakSelf.task];
     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DQNetworkTaskDidStartNotification object:self.task];
 }
 
 - (void)cancel {

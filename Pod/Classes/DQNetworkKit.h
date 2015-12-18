@@ -12,5 +12,6 @@
 #import "DQAPIManger.h"
 #import "DQAPI.h"
 #import "DQAPIReformer.h"
+#import "AFNetworking.h"
 
 #endif /* DQNetworkKit_h */

@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 
+FOUNDATION_EXPORT NSString * const DQNetworkTaskDidStartNotification;
+FOUNDATION_EXPORT NSString * const DQNetworkTaskDidCompleteNotification;
+
+
 @class DQAPIManger;
 @class DQAPIResponse;
 @protocol DQAPI;
