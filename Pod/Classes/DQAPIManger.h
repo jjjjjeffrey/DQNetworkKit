@@ -12,6 +12,8 @@
 FOUNDATION_EXPORT NSString * const DQNetworkTaskDidStartNotification;
 FOUNDATION_EXPORT NSString * const DQNetworkTaskDidCompleteNotification;
 
+FOUNDATION_EXPORT NSString * const DQNetworkTaskRequestBodyDataKey;
+
 
 @class DQAPIManger;
 @class DQAPIResponse;

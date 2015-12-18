@@ -18,6 +18,7 @@
 
 NSString * const DQNetworkTaskDidStartNotification = @"com.dqnetwork.task.start";
 NSString * const DQNetworkTaskDidCompleteNotification = @"com.dqnetwork.task.complete";
+NSString * const DQNetworkTaskRequestBodyDataKey = @"DQNetworkTaskRequestBodyDataKey";
 
 
 @interface APIParamsDefaultReformer : NSObject <DQAPIParamsReformer>
@@ -96,7 +97,9 @@ NSString * const DQNetworkTaskDidCompleteNotification = @"com.dqnetwork.task.com
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:DQNetworkTaskDidCompleteNotification object:weakSelf.task];
     }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:DQNetworkTaskDidStartNotification object:self.task];
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    userInfo[DQNetworkTaskRequestBodyDataKey] = [self.task.currentRequest.HTTPBody copy];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DQNetworkTaskDidStartNotification object:self.task userInfo:userInfo];
 }
 
 - (void)cancel {

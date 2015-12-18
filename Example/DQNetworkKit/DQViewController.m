@@ -46,7 +46,7 @@
     NSURLSessionDataTask *task = notification.object;
     NSLog(@"Request Identifier:%@", @(task.taskIdentifier));
     if (task.currentRequest.HTTPBody) {
-        NSString *body = [[NSString alloc] initWithData:task.currentRequest.HTTPBody encoding:NSUTF8StringEncoding];
+        NSString *body = [[NSString alloc] initWithData:notification.userInfo[DQNetworkTaskRequestBodyDataKey] encoding:NSUTF8StringEncoding];
         NSLog(@"REQUEST------------------------------>:\n%@ %@\n%@\n%@",
               task.currentRequest.HTTPMethod, task.currentRequest.URL, task.currentRequest.allHTTPHeaderFields, body);
     }

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "DQNetworkKit"
-  s.version          = "1.1.2"
+  s.version          = "1.1.3"
   s.summary          = "DQNetworkKit is a API Lib"
 
 # This description is used to generate tags and improve search results.
